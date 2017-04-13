@@ -168,7 +168,7 @@ class LocalStorage(object):
             # Instead, it moves on to the next file.
             try:
                 first_byte = self._download(first_byte, scene)
-                time.sleep(random.randint(5, 30))
+                time.sleep(random.randint(1, 5))
             except Exception as e:
                 print(str(e))
                 break
