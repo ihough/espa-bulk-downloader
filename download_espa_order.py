@@ -34,6 +34,7 @@ if sys.version_info[0] == 3:
 else:
     import urllib2 as ul
 
+from tqdm import tqdm
 
 class Api(object):
     def __init__(self, username, password, host):
@@ -181,7 +182,15 @@ class LocalStorage(object):
 
         with open(self.tmp_scene_path(scene), 'ab') as target:
             source = ul.urlopen(req)
-            shutil.copyfileobj(source, target)
+            file_size = int(source.headers['Content-Length'])
+            chunk_size = 16 * 1024
+            with tqdm(total=file_size, unit='B', unit_scale=True) as pbar:
+                while 1:
+                    buf = source.read(chunk_size)
+                    if not buf:
+                        break
+                    target.write(buf)
+                    pbar.update(chunk_size)
 
         return os.path.getsize(self.tmp_scene_path(scene))
 
