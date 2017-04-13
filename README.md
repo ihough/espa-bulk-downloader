@@ -38,11 +38,11 @@ Scenes are organized by order.
 
 It is safe to cancel and restart the client, as it will
 only download scenes one time (per directory)
- 
+
 If you intend to automate execution of this script,
 please take care to ensure only 1 instance runs at a time.
 Also please do not schedule execution more frequently than
 once per hour.
 
 
-    
+
