@@ -57,9 +57,11 @@ class Api(object):
 
         request = ul.Request(self.host + endpoint, data=data)
 
-        base64string = (base64
-                        .encodestring('%s:%s' % (self.username, self.password))
-                        .replace('\n', ''))
+        authstring = '%s:%s' % (self.username, self.password)
+        if sys.version_info[0] < 3:
+            base64string = base64.b64encode(authstring)
+        else:
+            base64string = base64.b64encode(authstring.encode()).decode()
         request.add_header("Authorization", "Basic %s" % base64string)
 
         try:
