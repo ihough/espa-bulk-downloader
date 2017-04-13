@@ -184,7 +184,7 @@ class LocalStorage(object):
             source = ul.urlopen(req)
             file_size = int(source.headers['Content-Length'])
             chunk_size = 16 * 1024
-            with tqdm(total=file_size, unit='B', unit_scale=True) as pbar:
+            with tqdm(total=file_size, unit='B', unit_scale=True, ncols=72) as pbar:
                 while 1:
                     buf = source.read(chunk_size)
                     if not buf:
